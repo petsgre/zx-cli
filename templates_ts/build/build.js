@@ -6,7 +6,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-module.exports = {
+const ora = require('ora')
+
+const spinner = ora('building for production...')
+spinner.start()
+setTimeout(function(){
+    spinner.stop()
+
+},2000)
+
+webpack({
     entry: {
         app: './src/main.ts'
     },
@@ -62,20 +71,29 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 1000,
-                    name: 'static/img/[name].[hash:3].[ext]',                }
+                    name: 'static/img/[name].[hash:7].[ext]',
+                }
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: 'static/fonts/[name].[hash:3].[ext]'
+                    name: 'static/fonts/[name].[hash:7].[ext]'
                 }
             },
 
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(
+            ['dist'],
+            {
+                root: path.join(__dirname, '..'),
+                verbose: false,
+                dry: false
+            }
+        ),
         new HtmlWebpackPlugin({ template: './src/index.html' }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -83,15 +101,7 @@ module.exports = {
                 API_ROOT: '"//www.jd.com/api"'
             }
         }),
-        new ExtractTextPlugin('[name]-[hash:3].css'),
-        new CleanWebpackPlugin(
-            ['dist/*', 'dist/*',],
-            {
-                root: __dirname,
-                verbose: true,
-                dry: false
-            }
-        ),
+        new ExtractTextPlugin('[name]-[hash:7].css'),
         new VueLoaderPlugin(),
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../static'),
@@ -99,7 +109,14 @@ module.exports = {
             ignore: ['.*']
         }])
     ],
-}
+}, (err, stats) => {
+    if (err || stats.hasErrors()) {
+      // 在这里处理错误
+    }
+    console.log('打包成功！');
+
+    // 处理完成
+  });
 
 // module.exports = {
 //     entry: {
@@ -146,7 +163,7 @@ module.exports = {
 //                 collapseWhitespace: true
 //             }
 //         }),
-//         new ExtractTextPlugin('[name]-[hash:3].css'),
+//         new ExtractTextPlugin('[name]-[hash:7].css'),
 
 //         // new ExtractTextPlugin('home/[name].[contenthash].css'),
 //         // new ExtractTextPlugin('about/[name].[contenthash].css'),
