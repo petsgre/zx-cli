@@ -4,6 +4,8 @@
   </div>
 </template>
 <script lang="ts">
+import _ from 'lodash';
+
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class About extends Vue {}

@@ -1,22 +1,24 @@
 {
-  "name": "ts",
-  "version": "1.0.0",
-  "description": "",
+  "name": "app",
+  "version": "2.0.0",
+  "description": "app with typescript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --progress --mode development --config build/hot.js",
-    "build": "node build/build.js",
-    "start:dev": "webpack-dev-server --config build/hot.js"
+    "dev": "webpack-dev-server --inline --progress --mode development --config build/build_dev.js",
+    "beta": "node build/build_beta.js",
+    "build": "node build/build_production.js"
   },
   "author": "zx",
   "license": "ISC",
   "dependencies": {
+    "@types/jquery": "^3.3.27",
     "@types/webpack-env": "^1.13.6",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
+    "@types/lodash": "^4.14.119",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

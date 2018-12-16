@@ -8,6 +8,12 @@
   </div>
 </template>
 <script lang="ts">
+import _ from 'lodash';
+// var _ = require('lodash');
+// console.log(lodash);
+const a = _.chunk(['a', 'b', 'c', 'd'], 2);
+console.log(process.env.API_ROOT);
+
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class App extends Vue {}

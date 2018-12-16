@@ -36,22 +36,22 @@ module.exports = {
     }, {
       test: /\.css$/,
       use: [
-          { loader: 'style-loader' },
-          {
-              loader: 'css-loader',
-              options: {
-                  importLoaders: 1,
-                  sourceMap: true
-              }
-          },
-          {
-              loader: 'postcss-loader',
-              options: {
-                  plugins: [require("autoprefixer")("last 100 versions")]
-              }
+        { loader: 'style-loader' },
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            sourceMap: true
           }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [require("autoprefixer")("last 100 versions")]
+          }
+        }
       ],
-  },
+    },
     {
       test: /\.js$/,
       use: 'babel-loader',
@@ -78,16 +78,12 @@ module.exports = {
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   filename: 'mall.html',
-    //   template: 'src/mall.html',
-    //   chunks: ['index'],
-    //   hash: true,
-    //   minify: {
-    //     removeComments: true,
-    //     collapseWhitespace: true
-    //   }
-    // }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"dev"',
+        API_ROOT: '"dev.api"'
+      }
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.html',
@@ -100,18 +96,6 @@ module.exports = {
         collapseWhitespace: true
       }
     }),
-    // new HtmlWebpackPlugin({
-    //   filename: 'main.html',
-    //   template: 'src/main.html',
-    //   inject: true,
-    //   title: "main",
-    //   hash: true,
-    //   chunks: ['main'],
-    //   minify: {
-    //     removeComments: true,
-    //     collapseWhitespace: true
-    //   }
-    // }),
     // 开启全局的模块热替换(HMR)
     new webpack.HotModuleReplacementPlugin(),
 
