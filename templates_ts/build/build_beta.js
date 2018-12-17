@@ -1,10 +1,11 @@
 const webpack = require('webpack')
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
 
 const ora = require('ora')
 
@@ -72,6 +73,7 @@ webpack({
                 test: /\.css$/,
                 use: [
                     { loader: 'style-loader' },
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
@@ -126,7 +128,19 @@ webpack({
                 API_ROOT: '"beta.api"'
             }
         }),
-        new ExtractTextPlugin('[name]-[hash:7].css'),
+        new MiniCssExtractPlugin({
+            filename: "[name].[chunkhash:8].css",
+            chunkFilename: "[name].[chunkhash:8].[id].css"
+        }),
+        new OptimizeCssnanoPlugin({
+            cssnanoOptions: {
+              preset: ['default', {
+                discardComments: {
+                  removeAll: true,
+                },
+              }],
+            },
+          }),
         new VueLoaderPlugin(),
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../static'),
