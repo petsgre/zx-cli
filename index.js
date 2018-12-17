@@ -8,7 +8,7 @@ var program = require('commander');
 const download = require('download-git-repo')
 const chalk = require('chalk')
 var prompt = require('prompt');
-
+let sub = require('./sub/js/test.js')
 program
   .version(require('./package').version, '-v, --version')
   .option('-C, --chdir <path>', 'change the working directory')
@@ -21,6 +21,7 @@ program
   // .option("-s, --setup_mode [mode]", "Which setup mode to use")
   .action(function (env, options) {
 
+    return
     //
     // Start the prompt
     //
