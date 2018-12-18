@@ -28,12 +28,18 @@ module.exports = {
       loader: 'vue-loader'
     },
     {
+      test: /\.js$/,
+      use: 'babel-loader',
+      exclude: /node_modules/
+    },
+    {
       test: /\.ts$/,
       loader: 'ts-loader',
       options: {
         appendTsSuffixTo: [/\.vue$/],
       }
-    }, {
+    },
+    {
       test: /\.css$/,
       use: [
         { loader: 'style-loader' },
@@ -51,11 +57,6 @@ module.exports = {
           }
         }
       ],
-    },
-    {
-      test: /\.js$/,
-      use: 'babel-loader',
-      exclude: /node_modules/
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
