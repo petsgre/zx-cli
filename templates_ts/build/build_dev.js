@@ -105,7 +105,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
-      to: 'static',
+      to: './',
       ignore: ['.*']
     }])
   ],
